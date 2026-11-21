@@ -1,0 +1,31 @@
+use std::cli;
+use console;
+use pelican;
+
+fn main() {
+    let argv = cli_args();
+    let count = args_len(argv);
+    if count == 1 && args_at(argv, 0) == "--help" {
+        println!("Compare per-request aligned I/O with coalesced unaligned reads for a sorted trace.");
+        println!("Usage: pelican starts lengths gap block");
+        println!("Vector arguments are comma-separated; use [] for an empty vector.");
+        return;
+    }
+    let mut result = [];
+    if count == 0 {
+        result = pelican_reads([0, 5, 20], [4, 3, 2], 1.0, 8.0);
+    } else {
+        if count != 4 { stderr_line("Wrong argument count. Use --help."); process_exit(2); }
+        let starts = console_vector(args_at(argv, 0));
+        let lengths = console_vector(args_at(argv, 1));
+        let gap = console_value(args_at(argv, 2));
+        let block = console_value(args_at(argv, 3));
+        result = pelican_reads(starts, lengths, gap, block);
+    }
+    if len(result) == 0 { stderr_line("Invalid input for Pelican. See the package input contract."); process_exit(1); }
+    let mut i = 0;
+    while i < len(result) {
+        println!(at(result, i));
+        i += 1;
+    }
+}

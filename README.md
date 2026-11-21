@@ -1,10 +1,14 @@
-<img src="assets/logo.png" width="112" height="112" alt="Pelican logo">
+<img src="assets/logo.png" width="112" height="112" alt="A brown pelican opens its ochre throat pouch beneath a long bill.">
 
 # Pelican
 
 Compare per-request aligned I/O with coalesced unaligned reads for a sorted trace. This Blyx workflow framework is part of the collections and storage collection.
 
 Merging requests saves seeks but can read unused gap bytes. Report each cost explicitly before changing a storage access pattern. [POSIX, pread and pwrite offsets](https://pubs.opengroup.org/onlinepubs/9799919799/functions/pread.html)
+
+## Editor extension
+
+Install **RahulChaube.blyx-pelican** to run the worked example and use the framework’s function completions in a Blyx file. Open an empty `.blyx` file, enter `blyx-pelican-demo`, then choose **Blyx: Run File**. [Editor downloads](https://www.blyx-lang.space/packages/pelican#editor) · [Download the extension](https://github.com/Rahulchaube1/blyxxxx/releases/download/framework-editors-v0.1.0/blyx-pelican-0.1.0.vsix) · [Starter with framework source](https://github.com/Rahulchaube1/blyxxxx/releases/download/framework-editors-v0.1.0/blyx-pelican-starter-0.1.0.zip)
 
 ## Install and run
 
@@ -84,7 +88,7 @@ This release includes identical copies of both library modules so a tagged clone
 
 ## Verification and contributions
 
-The regression suite in [tests.blyx](tests.blyx) checks the example, boundary cases and invalid inputs. Include a short reproducer and your compiler version in [an issue](https://github.com/Rahulchaube1/blyx-pelican/issues). The source is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE). The package artwork uses [Lucide icons](https://lucide.dev/license); see [artwork notices](assets/NOTICE.txt).
+The regression suite in [tests.blyx](tests.blyx) checks the example, boundary cases and invalid inputs. Include a short reproducer and your compiler version in [an issue](https://github.com/Rahulchaube1/blyx-pelican/issues). The source is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE). The [artwork notice](assets/NOTICE.txt) records credits for earlier editions.
 
 ## Connect with Rahul Chaube
 

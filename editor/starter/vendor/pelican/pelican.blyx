@@ -1,0 +1,71 @@
+use blockspan;
+use coalesceio;
+
+fn pelican_finite(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value - value == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn pelican_positive_counts(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value >= 1.0 && value <= 9007199254740991.0 && value % 1.0 == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn pelican_counts(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value >= 0.0 && value <= 9007199254740991.0 && value % 1.0 == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn pelican_compute(starts: vector, lengths: vector, gap: f64, block: f64) -> vector {
+    let merged = coalesceio_plan(starts, lengths, gap);
+    if len(merged) == 0 {
+        return [];
+    }
+    let mut total = 0.0;
+    let mut i = 0;
+    while i < len(starts) {
+        let span = blockspan_align(at(starts, i), at(lengths, i), block);
+        if len(span) == 0 {
+            return [];
+        }
+        total += at(span, 1);
+        if total > 9007199254740991.0 {
+            return [];
+        }
+        i += 1;
+    }
+    [total, at(merged, 0), at(merged, 1), at(merged, 2)]
+}
+
+// Compare per-request aligned I/O with coalesced unaligned reads for a sorted trace.
+// Returns [independent aligned bytes, coalesced read count, coalesced bytes, bridge-gap bytes]. Values describe two explicitly defined read strategies.
+pub fn pelican_reads(starts: vector, lengths: vector, gap: f64, block: f64) -> vector {
+    if !pelican_counts(starts) { return []; }
+    if !pelican_positive_counts(lengths) { return []; }
+    if !(gap >= 0.0 && gap <= 9007199254740991.0 && gap % 1.0 == 0.0) { return []; }
+    if !(block >= 1.0 && block <= 9007199254740991.0 && block % 1.0 == 0.0) { return []; }
+    let result = pelican_compute(starts, lengths, gap, block);
+    if !pelican_finite(result) { return []; }
+    result
+}
